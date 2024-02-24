@@ -28,9 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/users',[UserController::class,'index'])->name('users.list');
+    Route::get('/users/all',[UserController::class,'index'])->name('users.list');
     Route::get('/users/add',[UserController::class,'create'])->name('users.create');
     Route::post('/users/add',[UserController::class,'store']);
+    Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('user.edit');
+    Route::post('/users/{user}/edit',[UserController::class,'update'])->name('user.update');
+    Route::delete('/users/{user}/delete',[UserController::class,'destroy'])->name('user.delete');
 });
 
 // useless routes

@@ -39,22 +39,69 @@ class UserController extends Controller
         ]);
         // dd($request);
 
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'gender' => $request->gender,
-            'is_active' => $request->has('is_active') ? 1 : 0,
-            'role_id' => $request->role_id,
-            'password' => Hash::make($request->password),
-        ]);
-
-        if(!$user)
-        {
-            return redirect()->back()->with('error','Cannot Create New User');
+        try {
+            User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'gender' => $request->gender,
+                'is_active' => $request->has('is_active') ? 1 : 0,
+                'role_id' => $request->role_id,
+                'password' => Hash::make($request->password),
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error',$e);
         }
         return redirect()->route('users.list')->with('success', 'New User Added');  
+    }
+    
+    public function edit(User $user)
+    {
+        $roles = Role::get();
+        return view('users.user-edit',compact('roles','user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'min:8','max:11'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$user->id],
+            'address' => ['required', 'string','min:3', 'max:255'],
+            'gender' => ['required'],
+            'role_id' => ['required','numeric'],
+            'is_active' => ['nullable'],
+
+        ]);
+        // dd($request);
+
+        try {
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'gender' => $request->gender,
+                'is_active' => $request->has('is_active') ? 1 : 0,
+                'role_id' => $request->role_id,
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error',$e);
+        }
+        return redirect()->route('users.list')->with('success', 'User Info has Updated');  
+    }
+
+    public function destroy(User $user)
+    {
+        try {
+            $user->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error',$e);
+        }
+        return redirect()->route('users.list')->with('success', 'User Removed');  
     }
 }
