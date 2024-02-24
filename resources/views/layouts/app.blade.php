@@ -54,6 +54,9 @@
                     </div>
                 </header>
 
+                <!-- Flash Message -->
+                @include('components.flash-message')
+
                 <!-- Page Content -->
                 <main class="px-4 sm:px-6 flex-1">
                     {{ $slot }}

@@ -41,6 +41,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('name')])
 
                         <!-- User Name -->
                         <div class="mt-4 flex flex-row items-center">
@@ -68,7 +69,8 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
-                        
+                        @include('components.form.error', ['messages' => $errors->get('username')])
+
                         <!-- Phone Number -->
                         <div class="mt-4 flex flex-row items-center">
                             <x-form.label
@@ -95,6 +97,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('phone')])
 
                         <!-- Email -->
                         <div class="mt-4 flex flex-row items-center">
@@ -122,6 +125,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('email')])
 
                         <!-- Address -->
                         <div class="mt-4 flex flex-row items-center">
@@ -149,6 +153,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('address')])
 
                         <!-- Gender -->
                         <div class="mt-4 flex flex-row items-center mb-4">
@@ -159,13 +164,14 @@
                             />
 
                             <div class="flex items-center">
-                                <input id="female" type="radio" class="form-radio text-green-600 h-3 w-3" name="gender" value="0">
+                                <input id="female" type="radio" class="form-radio text-green-600 h-3 w-3" name="gender" value="0" required>
                                 <x-form.label for="female" :value="__('Female')" class="ml-2 mr-6" />
                         
-                                <input id="male" type="radio" class="form-radio text-green-600 h-3 w-3" name="gender" value="1">
+                                <input id="male" type="radio" class="form-radio text-green-600 h-3 w-3" name="gender" value="1" required>
                                 <x-form.label for="male" :value="__('Male')" class="ml-2" />
                             </div>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('gender')])
 
                         <!-- is active -->
                         <div class="mt-4 flex flex-row items-center mb-4">
@@ -187,13 +193,14 @@
                         <!-- role -->
                         <div class="mt-4 flex flex-row items-center">
                             <label for="role_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white w-1/2">Role : </label>
-                            <select id="role_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 mr-20">
-                                <option selected value="">Choose a Role</option>
+                            <select id="role_id" name="role_id" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 mr-20">
+                                <option value="">Choose a Role</option>
                                 @foreach ($roles as $role)
-                                    <option selected value="{{$role->id}}">{{$role->name}}</option>
+                                    <option value="{{$role->id}}">{{$role->name}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('role_id')])
 
                         <!-- Password -->
                         <div class="mt-4 flex flex-row items-center">
@@ -220,6 +227,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('password')])
 
                         <!-- Password Confirmed-->
                         <div class="mt-4 flex flex-row items-center">
@@ -246,6 +254,7 @@
                                 />
                             </x-form.input-with-icon-wrapper>
                         </div>
+                        @include('components.form.error', ['messages' => $errors->get('password_confirmation')])
 
                     </div>
                 </div>
