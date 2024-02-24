@@ -40,7 +40,7 @@
 
     <x-sidebar.dropdown
         title="Roles"
-        :active="Str::startsWith(request()->route()->uri(), 'buttons')"
+        :active="Str::startsWith(request()->route()->uri(), 'roles')"
     >
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -48,8 +48,8 @@
 
         <x-sidebar.sublink
             title="Roles List"
-            href="{{ route('buttons.text') }}"
-            :active="request()->routeIs('buttons.text')"
+            href="{{ route('roles.list') }}"
+            :active="request()->routeIs('roles.list')"
         />
         <x-sidebar.sublink
             title="Create Role"

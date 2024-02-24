@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -34,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('user.edit');
     Route::post('/users/{user}/edit',[UserController::class,'update'])->name('user.update');
     Route::delete('/users/{user}/delete',[UserController::class,'destroy'])->name('user.delete');
+
+    Route::get('/roles/all',[RoleController::class,'index'])->name('roles.list');
 });
 
 // useless routes
