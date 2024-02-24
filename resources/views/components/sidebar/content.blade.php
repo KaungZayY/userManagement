@@ -16,7 +16,7 @@
 
     <x-sidebar.dropdown
         title="Users"
-        :active="Str::startsWith(request()->route()->uri(), 'buttons')"
+        :active="Str::startsWith(request()->route()->uri(), 'users')"
     >
         <x-slot name="icon">
             <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -24,19 +24,18 @@
 
         <x-sidebar.sublink
             title="Users List"
-            href="{{ route('buttons.text') }}"
-            :active="request()->routeIs('buttons.text')"
+            href="{{ route('users.list') }}"
+            :active="request()->routeIs('users.list')"
         />
         <x-sidebar.sublink
             title="Create User"
-            href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')"
+            href="{{ route('users.create') }}"
+            :active="request()->routeIs('users.create')"
         />
-        <x-sidebar.sublink
+        {{-- <x-sidebar.sublink
             title="Import User"
-            href="{{ route('buttons.text-icon') }}"
-            :active="request()->routeIs('buttons.text-icon')"
-        />
+            
+        /> --}}
     </x-sidebar.dropdown>
 
     <x-sidebar.dropdown
