@@ -37,20 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users/{user}/delete',[UserController::class,'destroy'])->name('user.delete');
 
     Route::get('/roles/all',[RoleController::class,'index'])->name('roles.list');
+    Route::get('/roles/create',[RoleController::class,'create'])->name('roles.create');
+    Route::post('/roles/create',[RoleController::class,'store']);
+    Route::get('/roles/{role}/edit',[RoleController::class,'edit'])->name('role.edit');
+    Route::post('/roles/{role}/edit',[RoleController::class,'update'])->name('role.update');
+    Route::delete('/roles/{role}/delete',[RoleController::class,'destroy'])->name('role.delete');
 });
-
-// useless routes
-// Just to demo sidebar dropdown links active states.
-Route::get('/buttons/text', function () {
-    return view('buttons-showcase.text');
-})->middleware(['auth'])->name('buttons.text');
-
-Route::get('/buttons/icon', function () {
-    return view('buttons-showcase.icon');
-})->middleware(['auth'])->name('buttons.icon');
-
-Route::get('/buttons/text-icon', function () {
-    return view('buttons-showcase.text-icon');
-})->middleware(['auth'])->name('buttons.text-icon');
 
 require __DIR__ . '/auth.php';

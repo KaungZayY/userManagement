@@ -53,8 +53,8 @@
         />
         <x-sidebar.sublink
             title="Create Role"
-            href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')"
+            href="{{ route('roles.create') }}"
+            :active="request()->routeIs('roles.create')"
         />
     </x-sidebar.dropdown>
 
