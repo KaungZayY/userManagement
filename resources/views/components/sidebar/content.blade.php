@@ -14,30 +14,35 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown
-        title="Users"
-        :active="Str::startsWith(request()->route()->uri(), 'users')"
-    >
-        <x-slot name="icon">
-            <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-        </x-slot>
+    @if (viewContent('Users','View'))
+        <x-sidebar.dropdown
+            title="Users"
+            :active="Str::startsWith(request()->route()->uri(), 'users')"
+        >
+            <x-slot name="icon">
+                <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            </x-slot>
 
-        <x-sidebar.sublink
-            title="Users List"
-            href="{{ route('users.list') }}"
-            :active="request()->routeIs('users.list')"
-        />
-        <x-sidebar.sublink
-            title="Create User"
-            href="{{ route('users.create') }}"
-            :active="request()->routeIs('users.create')"
-        />
-        {{-- <x-sidebar.sublink
-            title="Import User"
-            
-        /> --}}
-    </x-sidebar.dropdown>
+            <x-sidebar.sublink
+                title="Users List"
+                href="{{ route('users.list') }}"
+                :active="request()->routeIs('users.list')"
+            />
+            @if (viewContent('Users','Create'))
+                <x-sidebar.sublink
+                    title="Create User"
+                    href="{{ route('users.create') }}"
+                    :active="request()->routeIs('users.create')"
+                />
+            @endif
+            {{-- <x-sidebar.sublink
+                title="Import User"
+                
+            /> --}}
+        </x-sidebar.dropdown>
+    @endif
 
+    @if (viewContent('Roles','View'))
     <x-sidebar.dropdown
         title="Roles"
         :active="Str::startsWith(request()->route()->uri(), 'roles')"
@@ -51,12 +56,15 @@
             href="{{ route('roles.list') }}"
             :active="request()->routeIs('roles.list')"
         />
-        <x-sidebar.sublink
-            title="Create Role"
-            href="{{ route('roles.create') }}"
-            :active="request()->routeIs('roles.create')"
-        />
+        @if (viewContent('Roles','Create'))
+            <x-sidebar.sublink
+                title="Create Role"
+                href="{{ route('roles.create') }}"
+                :active="request()->routeIs('roles.create')"
+            />
+        @endif
     </x-sidebar.dropdown>
+    @endif
 
     {{-- <div
         x-transition

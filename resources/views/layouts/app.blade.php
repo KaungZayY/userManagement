@@ -24,6 +24,7 @@
 </head>
 
 <body class="font-sans antialiased">
+    <?php include_once(app_path('Functions/PermissionHelper.php')); ?>
     <div
         x-data="mainState"
         :class="{ dark: isDarkMode }"
