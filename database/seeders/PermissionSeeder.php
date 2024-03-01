@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+include_once(app_path('Helpers/SeederHelper.php'));
 
 class PermissionSeeder extends Seeder
 {
@@ -13,29 +13,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('permissions')->insert([
-            'name' => 'View',
-            'feature_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('permissions')->insert([
-            'name' => 'Create',
-            'feature_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('permissions')->insert([
-            'name' => 'Update',
-            'feature_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('permissions')->insert([
-            'name' => 'Delete',
-            'feature_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        createPermission('Users','View','Create','Update','Delete');
+        createPermission('Roles','View','Create','Update','Delete');
     }
 }

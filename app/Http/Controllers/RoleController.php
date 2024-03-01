@@ -7,7 +7,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 
 //include custom file
-include_once(app_path('Functions/PermissionHelper.php'));
+include_once(app_path('Helpers/PermissionHelper.php'));
 
 /**
  * @param featureName = Roles

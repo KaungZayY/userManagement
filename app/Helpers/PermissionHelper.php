@@ -52,6 +52,10 @@ use Illuminate\Support\Facades\Auth;
         return true;
     }
 
+    /**
+     * @param feaureName,permissionName
+     * @return bool
+     */
     function viewContent($featureName, $permissionName){
         $permissionId = getPermissionId($featureName,$permissionName);
         if ($permissionId === null) {
