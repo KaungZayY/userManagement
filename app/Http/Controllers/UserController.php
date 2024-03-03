@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 //include custom file
-include_once(app_path('Helpers/PermissionHelper.php'));
+use App\Helpers\PermissionHelper;
 
 /**
  * @param featureName = Users
@@ -18,9 +18,16 @@ include_once(app_path('Helpers/PermissionHelper.php'));
 
 class UserController extends Controller
 {
+    protected $pHelper;
+
+    public function __construct()
+    {
+        $this->pHelper = new PermissionHelper();
+    }
+
     public function index()
     {
-        authorizeUser('Users','View');
+        $this->pHelper->authorizeUser('Users','View');
         $users = User::paginate(10);
         $users->load('role');
         return view('users.users-list',compact('users'));
@@ -28,14 +35,14 @@ class UserController extends Controller
 
     public function create()
     {
-        authorizeUser('Users','Create');
+        $this->pHelper->authorizeUser('Users','Create');
         $roles = Role::get();
         return view('users.user-create',compact('roles'));
     }
 
     public function store(Request $request)
     {
-        authorizeUser('Users','Create');
+        $this->pHelper->authorizeUser('Users','Create');
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
@@ -70,14 +77,14 @@ class UserController extends Controller
     
     public function edit(User $user)
     {
-        authorizeUser('Users','Update');
+        $this->pHelper->authorizeUser('Users','Update');
         $roles = Role::get();
         return view('users.user-edit',compact('roles','user'));
     }
 
     public function update(Request $request, User $user)
     {
-        authorizeUser('Users','Update');
+        $this->pHelper->authorizeUser('Users','Update');
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
@@ -110,7 +117,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        authorizeUser('Users','Delete');
+        $this->pHelper->authorizeUser('Users','Delete');
         try {
             $user->delete();
         } catch (\Exception $e) {

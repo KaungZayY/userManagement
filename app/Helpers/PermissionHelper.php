@@ -1,14 +1,16 @@
 <?php
+namespace App\Helpers;
 
 use App\Models\Feature;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+class PermissionHelper{
     /**
      * @param featureName,PermissionName
      * @return permissionId
      */
-    function getPermissionId($featureName,$permissionName){
+    public function getPermissionId($featureName,$permissionName){
         $feature = Feature::where('name',$featureName)->first();
         if($feature){
             $permission = $feature->permissions->where('name',$permissionName)->first();
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
      * @param permission_id
      * @return bool
      */
-    function checkPermission($permissionId)
+    public function checkPermission($permissionId)
     {
         $user = Auth::user();
         if ($user && $user->role) {
@@ -40,30 +42,16 @@ use Illuminate\Support\Facades\Auth;
      * @param featureName,PermissionName
      * @return true_Or_403
      */
-    function authorizeUser($featureName,$permissionName){
-        $permissionId = getPermissionId($featureName,$permissionName);
+    public function authorizeUser($featureName,$permissionName){
+        $permissionId = $this->getPermissionId($featureName,$permissionName);
         if ($permissionId === null) {
             abort(Response::HTTP_FORBIDDEN, 'Unauthorized Access.');
         }
-        $isAuthorized = checkPermission($permissionId);
+        $isAuthorized = $this->checkPermission($permissionId);
         if (!$isAuthorized) {
             abort(Response::HTTP_FORBIDDEN, 'Unauthorized Access.');
         }
         return true;
     }
 
-    /**
-     * @param feaureName,permissionName
-     * @return bool
-     */
-    function viewContent($featureName, $permissionName){
-        $permissionId = getPermissionId($featureName,$permissionName);
-        if ($permissionId === null) {
-            return false;
-        }
-        $isAuthorized = checkPermission($permissionId);
-        if (!$isAuthorized) {
-            return false;
-        }
-        return true;
-    }
+}
